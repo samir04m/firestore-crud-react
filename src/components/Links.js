@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LinkForm from './LinkForm';
-
 import { db } from "../firebase";
+import { toast } from "react-toastify";
 
 const Links = () => {
 
@@ -9,7 +9,9 @@ const Links = () => {
 
     const addOrEditLink = async (linkObject) => {
         await db.collection('links').doc().set(linkObject);
-        console.log('se ha gaurdado', linkObject);
+        toast("New Link Added", {
+            type: "success",
+        });
     }
 
     const getLinks = async () => {
@@ -26,7 +28,10 @@ const Links = () => {
     const onDeleteLink = async (id) => {
         if (window.confirm("are you sure you want to delete this link?")) {
             await db.collection("links").doc(id).delete();
-           
+            toast("Link Removed Successfully", {
+                type: "error",
+                autoClose: 2000
+            });           
         }
     };
     
