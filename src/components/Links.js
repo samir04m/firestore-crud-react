@@ -23,6 +23,14 @@ const Links = () => {
         });
     }
 
+    const onDeleteLink = async (id) => {
+        if (window.confirm("are you sure you want to delete this link?")) {
+            await db.collection("links").doc(id).delete();
+           
+        }
+    };
+    
+
     useEffect(() => {
         console.log('getting data ...');
         getLinks();
@@ -47,13 +55,15 @@ const Links = () => {
                                     <div>
                                         <i
                                             className="material-icons text-danger"
-                                            // onClick={() => onDeleteLink(link.id)}
+                                            onClick={() => onDeleteLink(link.id)}
+                                            role="button"
                                         >
                                             close
                                         </i>
                                         <i
                                             className="material-icons"
                                             // onClick={() => setCurrentId(link.id)}
+                                            role="button"
                                         >
                                             create
                                         </i>
